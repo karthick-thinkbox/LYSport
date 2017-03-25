@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+{% load static %}  
+<html lang="en">
+<head>
+  <title>Order Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LYSport</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active" ><a href="#">Detail</a></li>
+      
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/home/"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
+      <li><a href="/logout/"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container" >
+      <div class="row">
+          <div class="col-md-6">
+                <img src="{% static "Order/logo.jpg" %}"  height=300 width=350 class="img-rounded" style="padding:10px"   alt="Product Image" />
+          </div>
+      
+          <div class="col-md-6">
+              <h2><span class="label label-primary">Order Details </span></h2>
+                   <p style="font-size:150% ; font-family:calibri">
+                   <b>Order #</b> : {{ object.order_id }}<br>
+                   <b>Status</b> : {{ object.order_stat  }}<br>
+                   <b>Source</b> : {{ object.order_source }}<br>
+                   <b>Product Name</b> : {{ object.prod_name }}<br>
+                   {% if cur_code == 'INR' %}
+                       <b>Cost</b> : {{ Rupees  }} INR
+                   {% endif %}
+                    {% if cur_code != 'INR' %}
+                   <b>Cost</b> : {{ object.cost_price  }} USD
+                   {% endif %}
+                   <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Currency
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="/detail/{{ object.id}}/INR">INR</a></li>
+                      <li><a href="/detail/{{ object.id}}/USD">USD</a></li>
+                      
+                    </ul>
+                  </div>
+                   <br>
+                   <b>Link</b> : <a href="{{ object.prod_url }}"> {{ object.prod_url }}</a><br>
+                   </p>
+                
+          </div>  
+      </div>  
+      
+      
+  </div>        
+
+</body>
+</html>

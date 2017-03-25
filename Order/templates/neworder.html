@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+{% load static %}  
+<html lang="en">
+<head>
+  <title>Order Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    
+
+
+
+</style>    
+
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LYSport</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active" ><a href="#">Create Order</a></li>
+      
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'home_page'%}"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
+      <li><a href="{% url 'exit_page'%}"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+{% if flg == 'error' %}
+    <h3 class="bg-danger"> &nbsp &nbsp Order Not Placed  </h3>
+{% endif %}
+
+{% if flg == 'Done' %}
+    <h3 class="bg-success"> &nbsp &nbsp  Order:<b>{{ordid}}</b>  Created Successfully </h3>
+{% endif %}
+{% if Error %}
+                           <h3 class="bg-danger"> &nbsp &nbsp <p> Error : Order # Aready Exist</p></h3>
+                          {% endif %}           
+
+
+    
+  <div class="container" >
+      <div class="row">
+          <div class="col-md-6">
+                <img src="{% static "Order/logo.jpg" %}"  height=500 width=350 class="img-rounded" style="padding:10px"   alt="Product Image" />
+          </div>
+      
+          <div class="col-md-6">
+              
+                   <p style="font-size:150% ; font-family:calibri">
+                      <form action="" method ="post" enctype="multipart/form-data">
+  
+                          {% csrf_token %}
+                          <p>    
+                          <b style="padding-right:4.5em;">Order# :&nbsp</b>{{ form.order_id }} <br><br>
+                          <b style="padding-right:5.25em;">Status :</b>{{ form.order_stat }}<br><br>
+                          <b style="padding-right:4.5em;">Source :&nbsp</b>{{ form.order_source }}<br><br>
+                          <b style="padding-right:1.5em;">Product Name :</b>{{ form.prod_name }}<br><br>
+                          <b style="padding-right:6em;">Cost :</b>{{ form.cost_price }}<br><br>
+                          <b style="padding-right:6.5em;">Link :</b>{{ form.prod_url }} <br><br> 
+                          </p>
+                          
+                            
+                           
+                        <input type="submit" class="btn btn-success" value="Create Order">    
+                        </form>  
+                   </p>
+                
+          </div>  
+      </div>  
+      
+      
+  </div>          
+    
+    
+    
+    
+    
+ 
+
+
+

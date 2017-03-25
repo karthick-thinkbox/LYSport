@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ {% load el_pagination_tags %} 
+ {% load static %}
+<style>
+
+          
+  li{
+      float:left;
+    }
+      
+   .image{
+      position:relative;
+        width:100;
+     }   
+     
+     h2{
+         olor: white; 
+         font: bold 24px/45px Helvetica, Sans-Serif; 
+         letter-spacing: -1px;  
+         background: rgb(0, 0, 0); /* fallback color */
+         background: rgba(0, 0, 0, 0.7);
+         padding: 10px; 
+         
+       }
+         
+         
+      li{
+        width:250px;
+        }
+          
+      
+  
+  
+      
+ </style> 
+<head>
+  <title>LySport</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">LySport</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active" ><a href="/home">Dashboard</a></li>
+      <li ><a href="/create_order">Create Order</a></li>
+      
+    </ul>    <ul class="nav navbar-nav navbar-right">
+      
+      <li><a href="/logout/"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+</head>
+
+<body background-image="{% static "Order/bg2.jpg" %}">
+
+<h3> Welcome {{user}} </h3>
+<form method ="post" action ="/home/">
+  {% csrf_token %}
+  <p align='middle'> 
+
+  <input type="text" name="filter" placeholder="Order#">
+  <input type="submit" value="search"  >
+  </p>
+  
+  {% if Error %}
+    <p align='middle' class="bg-danger">Error : {{Error}}</p>
+  {% endif %}
+</form>
+
+<form method ="get" action ="/home/">
+  
+  <p align='right'> 
+   Sort by :
+  <input type="radio" name="sortchoice"  value="order_stat">Status
+  <input type="radio" name="sortchoice" value="order_id">Order#
+  
+  <button type="submit" name="order_pg" value="dsc"  >&#9660</button>
+  <button type="submit" name="order_pg" value="asc"  >&#9650</button>
+  </p>
+</form>
+
+  
+  <div style="width:100%">
+  {% paginate object_list %}
+  {% for Order in object_list %}
+   
+  
+        <ul style="list-style-type:none  "> 
+          <li >
+            
+          <img src="{% static "Order/logo.jpg" %}" height=150 width=170 hspace=10 vspace=5">
+          <figCaption>
+          <strong>
+          <p>{{Order.order_stat}}</p>
+          <p><a href="/detail/{{ Order.id}}/USD">{{Order.order_id}} </a>
+           
+          </p>
+          </figCaption>
+          </strong>
+          
+          </img>
+          <li>
+        </ul>
+      {% endfor %}
+        
+   </div>
+ 
+ <div style="clear:left" > 
+       
+      <strong> 
+     {% show_pages %}
+       </strong>
+       </align>
+     </div>
+    
+      
+        
+
+
+
+     
+     
+          
+      
+</body>    
+
+      
+    
+</html>
